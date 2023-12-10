@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteContact } from '../../redux/contactsSlice';
 import {
   DeleteButton,
   DeleteIcon,
@@ -10,7 +12,9 @@ import {
   Number,
 } from './ContactItem.styled';
 
-const ContactItem = ({ id, name, number, color, bgColor, onDeleteContact }) => {
+const ContactItem = ({ id, name, number, color, bgColor }) => {
+  const dispatch = useDispatch();
+
   return (
     <Item>
       <Avatar color={color} bgColor={bgColor}>
@@ -18,7 +22,7 @@ const ContactItem = ({ id, name, number, color, bgColor, onDeleteContact }) => {
       </Avatar>
       <Name>{name}</Name>
       <Number>{number}</Number>
-      <DeleteButton onClick={() => onDeleteContact(id)}>
+      <DeleteButton onClick={() => dispatch(deleteContact(id))}>
         <DeleteIcon />
       </DeleteButton>
     </Item>
@@ -31,7 +35,6 @@ ContactItem.propTypes = {
   number: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   bgColor: PropTypes.string.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
 };
 
 export default ContactItem;

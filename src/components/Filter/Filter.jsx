@@ -1,8 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
-import PropTypes from 'prop-types';
+import { setFilter } from '../../redux/filterSlice';
 
-export const Filter = ({ onSearchContact }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const handleFilter = event => {
+    dispatch(setFilter(event.target.value));
+  };
+
   return (
     <TextField
       id="outlined-search"
@@ -10,14 +17,10 @@ export const Filter = ({ onSearchContact }) => {
       color="secondary"
       type="search"
       size="small"
-      onChange={onSearchContact}
+      onChange={handleFilter}
       style={{ marginBottom: '20px' }}
     />
   );
-};
-
-Filter.propTypes = {
-  onSearchContact: PropTypes.func.isRequired,
 };
 
 export default Filter;
